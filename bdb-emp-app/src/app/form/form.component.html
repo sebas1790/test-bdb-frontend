@@ -1,0 +1,42 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">{{ titulo }}</div>
+    <div class="card-body">
+        <form #userForm="ngForm" (ngSubmit)="userForm.form.valid && create()">
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre completo</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="employee.fullname" name="name" #name="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && name.invalid }" required />
+                    <div class="invalid-feedback" *ngIf="userForm.submitted && name.invalid">
+                        <p *ngIf="name.errors.required">Nombre es requerido</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="funcion" class="col-form-label col-sm-2">Funcion</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="employee.function" name="function" #func="ngModel" [ngClass]="{ 'is-invalid': userForm.submitted && func.invalid }" required />
+                    <div class="invalid-feedback" *ngIf="userForm.submitted && func.invalid">
+                        <p *ngIf="func.errors.required">Funcion es requerida</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" type="submit" *ngIf="!employee.id; else elseBlock">
+                        <i class="fa fa-save"></i> Crear
+                    </button>
+                    <ng-template #elseBlock>
+                        <button class="btn btn-primary" type="button" (click)="update()">
+                            <i class="fa fa-save"></i> Editar
+                        </button>
+                    </ng-template>
+                    <button class="btn btn-rounded btn-danger ml-2" type="button" [routerLink]="['/employees']">
+                        <i class="fa fa-ban"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿<div class="card border-primary mb-3">
+    <div class="card-header">{{titulo}}</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de {{titulo}}</h5>
+
+        <div class="my-2 text-left">
+            <button class="btn btn-rounded btn-primary" type="submit" [routerLink]="['/employees/form']">
+                <i class="fa fa-plus"></i> Crear Empleado
+            </button>
+        </div>
+
+        <div class="alert alert-info" *ngIf="employees?.length == 0">
+            <i class="fa fa-info-circle"></i> No existen registros.
+        </div>
+
+        <table class="table table-bordered table-striped" *ngIf="employees?.length > 0">
+            <thead>
+                <tr>
+                    <th>Cod.</th>
+                    <th>Nombre completo</th>
+                    <th>Función</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees">
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.fullname }}</td>
+                    <td>{{ employee.function }}</td>
+                    <td>
+                        <button type="button" name="editar" [routerLink]="['/employees/form', employee.id]" class="btn btn-primary btn-sm">
+                            <i class="fa fa-edit"></i> Editar
+                        </button>
+                        <button type="button" name="eliminar" (click)="delete(employee)" class="btn btn-danger btn-sm ml-3">
+                            <i class="fa fa-ban"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
